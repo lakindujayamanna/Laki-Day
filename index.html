@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Laki Day</title>
+<meta name="theme-color" content="#1c2733">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Laki Day">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5f1;--card:#fff;--ink:#1c2733;--mute:#5d6b78;--line:#d9e0d9;--m:#3566c9;--p:#b86a0f;--c:#1f8458;--f:#7a4cb8;--o:#5d6b78;--ok:#1f8458;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#121820;--card:#1b242e;--ink:#e8eef2;--mute:#9aa8b4;--line:#2a3641;--m:#7ba3f0;--p:#f0a94d;--c:#5fcf9b;--f:#b99af0;--o:#9aa8b4;--ok:#5fcf9b}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#121820;--card:#1b242e;--ink:#e8eef2;--mute:#9aa8b4;--line:#2a3641;--m:#7ba3f0;--p:#f0a94d;--c:#5fcf9b;--f:#b99af0;--o:#9aa8b4;--ok:#5fcf9b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.45;padding-bottom:84px}
+main{max-width:560px;margin:0 auto;padding:20px 16px}
+h1{font-size:28px;font-weight:800;margin:0 0 2px;letter-spacing:-.02em}
+h2{font-size:18px;font-weight:600;margin:22px 0 8px}
+.sub{color:var(--mute);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.row{display:flex;align-items:center;gap:10px}
+.stats{display:flex;gap:10px;margin-bottom:14px}
+.stats .card{flex:1;padding:10px 12px}
+.stats b{font-size:22px;display:block;font-weight:800}
+.stats span{color:var(--mute);font-size:13px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--m);outline-offset:2px}
+.chip{border:1.5px solid var(--line);background:transparent;border-radius:99px;padding:6px 12px;font-size:14px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.btn{background:var(--ink);color:var(--bg);border:0;border-radius:12px;padding:12px 18px;font-weight:600}
+.btn.alt{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+input[type=text],textarea{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:11px 12px}
+textarea{min-height:72px;resize:vertical}
+.task{display:flex;align-items:center;gap:12px;padding:11px 12px;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:0}
+.box{width:28px;height:28px;border-radius:8px;border:2px solid var(--line);background:transparent;flex:none;display:grid;place-items:center;font-weight:800}
+.task.done .box{background:var(--ok);border-color:var(--ok);color:var(--card)}
+.task.done .t{text-decoration:line-through;color:var(--mute)}
+.t{flex:1;min-width:0;overflow-wrap:anywhere}
+.tag{font-size:12px;font-weight:600;white-space:nowrap}
+.x{background:none;border:0;color:var(--mute);font-size:20px;padding:4px 8px}
+.empty{color:var(--mute);text-align:center;padding:22px 10px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav button{flex:1;background:none;border:0;padding:14px 4px;font-weight:600;color:var(--mute);border-top:3px solid transparent}
+nav button.on{color:var(--ink);border-top-color:var(--ink)}
+.ringwrap{display:grid;place-items:center;position:relative;margin:10px 0}
+.ringwrap svg{width:240px;height:240px;transform:rotate(-90deg)}
+.ringtxt{position:absolute;text-align:center}
+.ringtxt b{font-size:52px;font-weight:800;display:block;line-height:1;font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:9px;background:var(--line);overflow:hidden;margin:6px 0 10px}
+.bar i{display:block;height:100%}
+.topic{display:flex;align-items:center;gap:8px;padding:6px 0}
+.pill{border:1.5px solid var(--line);background:transparent;border-radius:99px;padding:6px 12px;font-size:13px;font-weight:600;min-width:104px;text-align:center}
+.s1{border-color:var(--p);color:var(--p)}.s2{border-color:var(--ok);color:var(--ok)}
+.msg{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;margin-top:12px;color:var(--mute);text-align:center}
+.cls{border-left:5px solid var(--ink);margin-bottom:14px}.cls p{margin:4px 0 0;color:var(--mute);font-size:14px}.cls b{font-size:17px}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<nav id="nav"></nav>
+<script>
+var CATS={m:['Maths','--m'],p:['Physics','--p'],c:['Chemistry','--c'],f:['Reward','--f'],o:['Other','--o']};
+var PRE=[[15,3,'Sprint'],[25,5,'Classic'],[40,8,'Deep']];
+var TABS=[['today','Today'],['focus','Focus'],['syll','Syllabus'],['chk','Check-in']];
+function starter(){return{m:['Functions','Differentiation','Integration','Vectors','Statics','Dynamics'],p:['Mechanics','Thermal physics','Oscillations and waves','Electricity','Magnetism','Modern physics'],c:['Atomic structure','Chemical bonding','Thermochemistry','Equilibrium','Organic chemistry','Electrochemistry']}}
+function fresh(){var t=starter(),o={};for(var k in t)o[k]=t[k].map(function(n){return{n:n,s:0}});return{tasks:{},focus:{},topics:o,chk:{}}}
+var S;try{S=JSON.parse(localStorage.getItem('dsp1'))}catch(e){}
+if(!S||!S.topics)S=fresh();
+function save(){try{localStorage.setItem('dsp1',JSON.stringify(S))}catch(e){}}
+function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function col(c){return'var('+CATS[c][1]+')'}
+var tab='today',addCat='m',T={mode:'focus',pre:1,cat:'m',left:1500,running:false,end:0,note:''};
+function $(s){return document.querySelector(s)}
+function tasks(){return S.tasks[today()]||(S.tasks[today()]=[])}
+function focusMin(){return(S.focus[today()]||[]).reduce(function(a,f){return a+f.m},0)}
+
+function render(){
+ $('#nav').innerHTML=TABS.map(function(t){return'<button data-tab="'+t[0]+'" class="'+(tab==t[0]?'on':'')+'">'+t[1]+'</button>'}).join('');
+ var h='';
+ if(tab=='today')h=vToday();else if(tab=='focus')h=vFocus();else if(tab=='syll')h=vSyll();else h=vChk();
+ $('#app').innerHTML=h;
+}
+function catChips(sel,attr,list){return'<div class="chips">'+list.map(function(c){return'<button class="chip '+(sel==c?'on':'')+'" data-'+attr+'="'+c+'"><span style="color:'+(sel==c?'inherit':col(c))+'">●</span> '+CATS[c][0]+'</button>'}).join('')+'</div>'}
+
+function vToday(){
+ var ts=tasks(),done=ts.filter(function(t){return t.d}).length;
+ var d=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+ var h='<h1>Today</h1><p class="sub">'+d+'</p><div id="clsbox">'+clsHTML()+'</div>';
+ h+='<div class="stats"><div class="card"><b>'+done+'/'+ts.length+'</b><span>tasks done</span></div><div class="card"><b>'+focusMin()+'</b><span>focus minutes</span></div></div>';
+ h+='<div class="card" style="padding:0">';
+ if(!ts.length)h+='<div class="empty">Nothing planned yet. Add your first task below, or load a starter day.</div>';
+ ts.forEach(function(t,i){h+='<div class="task '+(t.d?'done':'')+'"><button class="box" data-tog="'+i+'" aria-label="Mark done">'+(t.d?'✓':'')+'</button><span class="t">'+esc(t.t)+'</span><span class="tag" style="color:'+col(t.c)+'">'+CATS[t.c][0]+'</span><button class="x" data-del="'+i+'" aria-label="Delete task">×</button></div>'});
+ h+='</div>';
+ h+='<h2>Add a task</h2><input type="text" id="nt" placeholder="e.g. Integration past paper, 10 questions" maxlength="120">'+catChips(addCat,'ac',['m','p','c','f','o'])+'<div class="row"><button class="btn" data-add="1">Add task</button>'+(ts.length?'':'<button class="btn alt" data-start="1">Load starter day</button>')+'</div>';
+ h+='<div class="msg">Tip: put a reward after every two focus blocks. Rewards you plan don’t cause regret.</div>';
+ return h;
+}
+var CLASSES=[{d:1,s:450,e:780,n:'Chemistry class',c:'c'},{d:2,s:900,e:1200,n:'Maths class',c:'m'},{d:4,s:450,e:810,n:'Physics class',c:'p'}];
+var DAYN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],notified={};
+function fmtT(m){var h=Math.floor(m/60);return(h%12||12)+':'+('0'+m%60).slice(-2)+' '+(h<12?'AM':'PM')}
+function nextClass(){var now=new Date(),best=null;for(var o=0;o<8;o++){var b=new Date(now.getFullYear(),now.getMonth(),now.getDate()+o);CLASSES.forEach(function(c){if(c.d!=b.getDay())return;var st=new Date(b.getTime()+c.s*60000),en=new Date(b.getTime()+c.e*60000);if(en<=now)return;if(!best||st<best.st)best={c:c,st:st,en:en}})}return best}
+function clsHTML(){var n=nextClass();if(!n)return'';var mins=Math.round((n.st-new Date())/60000),h;
+ if(mins<=0)h='In class now: '+n.c.n+', until '+fmtT(n.c.e);
+ else{var t=mins>=1440?Math.floor(mins/1440)+' d '+Math.floor(mins%1440/60)+' h':mins>=60?Math.floor(mins/60)+' h '+mins%60+' min':mins+' min';h='Next: '+n.c.n+', '+DAYN[n.st.getDay()]+' '+fmtT(n.c.s)+' (in '+t+')';if(mins<=30)h+='. Get ready now.'}
+ var perm='unsupported';try{perm=Notification.permission}catch(e){}
+ return'<div class="card cls" style="border-left-color:'+col(n.c.c)+'"><b>'+h+'</b><p>Mon 7:30 AM to 1:00 PM Chemistry. Tue 3:00 PM to 8:00 PM Maths. Thu 7:30 AM to 1:30 PM Physics.</p>'+(perm=='granted'?'<p>Alerts on while this page is open.</p>':perm=='denied'||perm=='unsupported'?'<p>Browser alerts are not available here. Use the calendar file for reminders.</p>':'<p><button class="chip" data-notif="1">Turn on alerts</button></p>')+'</div>'}
+setInterval(function(){var el=$('#clsbox');if(el)el.innerHTML=clsHTML();var n=nextClass();if(n){var m=(n.st-new Date())/60000;if(m<=30&&m>0&&!notified[+n.st]){notified[+n.st]=1;beep();try{if(Notification.permission=='granted')new Notification(n.c.n+' starts in 30 minutes')}catch(e){}}}},30000);
+function fmt(s){return('0'+Math.floor(s/60)).slice(-2)+':'+('0'+s%60).slice(-2)}
+function vFocus(){
+ var dur=PRE[T.pre][T.mode=='focus'?0:1]*60,fr=T.left/dur,R=104,C=2*Math.PI*R;
+ var h='<h1>Focus</h1><p class="sub">'+(T.mode=='focus'?'Pick a subject and start. Just one block.':'Break time. Move, drink water, or enjoy a planned reward.')+'</p>';
+ h+=catChips(T.cat,'fc',['m','p','c','o']);
+ h+='<div class="chips">'+PRE.map(function(p,i){return'<button class="chip '+(T.pre==i?'on':'')+'" data-pre="'+i+'">'+p[2]+' '+p[0]+'/'+p[1]+'</button>'}).join('')+'</div>';
+ h+='<div class="ringwrap"><svg viewBox="0 0 240 240"><circle cx="120" cy="120" r="'+R+'" fill="none" stroke="var(--line)" stroke-width="12"/><circle id="ring" cx="120" cy="120" r="'+R+'" fill="none" stroke="'+(T.mode=='focus'?col(T.cat):'var(--ok)')+'" stroke-width="12" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+(C*(1-fr))+'"/></svg><div class="ringtxt"><b id="tm">'+fmt(T.left)+'</b><span class="sub">'+(T.mode=='focus'?CATS[T.cat][0]:'Break')+'</span></div></div>';
+ h+='<div class="row" style="justify-content:center"><button class="btn" data-go="1" id="go">'+(T.running?'Pause':'Start')+'</button><button class="btn alt" data-reset="1">Reset</button></div>';
+ if(T.note)h+='<div class="msg">'+T.note+'</div>';
+ h+='<div class="msg">Today: '+focusMin()+' focus minutes logged</div>';
+ return h;
+}
+function vSyll(){
+ var h='<h1>Syllabus</h1><p class="sub">Tap a topic to change its status: not started, shaky, solid. Edit the lists to match your own syllabus.</p>';
+ ['m','p','c'].forEach(function(k){
+  var L=S.topics[k],sol=L.filter(function(t){return t.s==2}).length,pct=L.length?Math.round(sol/L.length*100):0;
+  h+='<h2 style="color:'+col(k)+'">'+CATS[k][0]+' <span style="color:var(--mute);font-weight:400;font-size:14px">'+sol+'/'+L.length+' solid</span></h2><div class="bar"><i style="width:'+pct+'%;background:'+col(k)+'"></i></div><div class="card">';
+  L.forEach(function(t,i){h+='<div class="topic"><span class="t">'+esc(t.n)+'</span><button class="pill s'+t.s+'" data-st="'+k+':'+i+'">'+['Not started','Shaky','Solid'][t.s]+'</button><button class="x" data-rt="'+k+':'+i+'" aria-label="Remove topic">×</button></div>'});
+  h+='<div class="row" style="margin-top:8px"><input type="text" id="tp-'+k+'" placeholder="Add a topic" maxlength="60"><button class="btn" data-at="'+k+'">Add</button></div></div>';
+ });
+ return h;
+}
+function vChk(){
+ var c=S.chk[today()]||{},ts=tasks(),done=ts.filter(function(t){return t.d});
+ var h='<h1>Check-in</h1><p class="sub">Two minutes at the end of the day. Facts, not guilt.</p>';
+ h+='<div class="stats"><div class="card"><b>'+done.length+'/'+ts.length+'</b><span>tasks done</span></div><div class="card"><b>'+focusMin()+'</b><span>focus minutes</span></div></div>';
+ h+='<h2>How was your focus?</h2><div class="chips">'+[['1','Scattered'],['2','Okay'],['3','Locked in']].map(function(m){return'<button class="chip '+(c.mood==m[0]?'on':'')+'" data-mood="'+m[0]+'">'+m[1]+'</button>'}).join('')+'</div>';
+ h+='<h2>What got in the way?</h2><textarea id="c-slip" placeholder="Phone, tiredness, a hard topic…">'+esc(c.slip||'')+'</textarea>';
+ h+='<h2>First task tomorrow</h2><input type="text" id="c-next" value="'+esc(c.next||'')+'" placeholder="Make it small and specific" maxlength="120">';
+ var keys=Object.keys(S.chk).filter(function(k){return k!=today()}).sort().reverse().slice(0,3);
+ if(keys.length){h+='<h2>Earlier</h2>';keys.forEach(function(k){var e=S.chk[k];h+='<div class="card" style="margin-bottom:8px"><b>'+k+'</b><div class="sub" style="margin:2px 0 0">'+esc(e.slip||'No notes')+'</div></div>'})}
+ h+='<h2>Backup</h2><div class="card"><p class="sub" style="margin-top:0">Your data lives only on this phone. Copy a backup now and then and paste it into Notes.</p><textarea id="bk" placeholder="Backup text appears here. To restore, paste it here."></textarea><div class="row" style="margin-top:8px"><button class="btn" data-bkc="1">Copy backup</button><button class="btn alt" data-bkr="1">Restore</button></div><p id="bkm" class="sub" style="margin:8px 0 0"></p></div>';
+ return h;
+}
+
+function beep(){try{var a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=660;g.gain.value=.15;o.start();o.stop(a.currentTime+.5)}catch(e){}try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}
+function finish(){
+ T.running=false;beep();
+ if(T.mode=='focus'){(S.focus[today()]=S.focus[today()]||[]).push({c:T.cat,m:PRE[T.pre][0]});save();T.mode='break';T.note='Block done. You earned a break.'}
+ else{T.mode='focus';T.note='Break over. Ready for the next block?'}
+ T.left=PRE[T.pre][T.mode=='focus'?0:1]*60;render();
+}
+setInterval(function(){
+ if(!T.running)return;
+ T.left=Math.max(0,Math.round((T.end-Date.now())/1000));
+ var tm=$('#tm');if(tm){tm.textContent=fmt(T.left);var dur=PRE[T.pre][T.mode=='focus'?0:1]*60,C=2*Math.PI*104;$('#ring').setAttribute('stroke-dashoffset',C*(1-T.left/dur))}
+ document.title=fmt(T.left)+' · Laki Day';
+ if(T.left<=0){document.title='Laki Day';finish()}
+},250);
+
+function addTask(){var i=$('#nt'),v=i.value.trim();if(!v)return;tasks().push({t:v,c:addCat,d:false});save();render()}
+function addTopic(k){var i=$('#tp-'+k),v=i.value.trim();if(!v)return;S.topics[k].push({n:v,s:0});save();render()}
+document.addEventListener('click',function(e){
+ var b=e.target.closest('button');if(!b)return;var d=b.dataset;
+ if(d.tab){tab=d.tab;T.note='';render();window.scrollTo(0,0)}
+ else if(d.tog!==undefined){var t=tasks()[+d.tog];t.d=!t.d;save();render()}
+ else if(d.del!==undefined){tasks().splice(+d.del,1);save();render()}
+ else if(d.ac){addCat=d.ac;var v=$('#nt').value;render();$('#nt').value=v}
+ else if(d.add)addTask();
+ else if(d.start){[['Combined Maths: Focus block 1','m'],['Physics: Focus block 1','p'],['Reward: 30 min gaming','f'],['Chemistry: Focus block 1','c'],['Past paper questions (any subject)','m'],['Reward: one episode','f'],['Coding for 20 minutes','f'],['Review today’s notes','o']].forEach(function(x){tasks().push({t:x[0],c:x[1],d:false})});save();render()}
+ else if(d.fc){T.cat=d.fc;render()}
+ else if(d.pre!==undefined){if(!T.running){T.pre=+d.pre;T.left=PRE[T.pre][T.mode=='focus'?0:1]*60;T.note='';render()}}
+ else if(d.go){if(T.running){T.left=Math.max(0,Math.round((T.end-Date.now())/1000));T.running=false}else{T.running=true;T.note='';T.end=Date.now()+T.left*1000}render()}
+ else if(d.reset){T.running=false;T.left=PRE[T.pre][T.mode=='focus'?0:1]*60;T.note='';render()}
+ else if(d.st){var p=d.st.split(':'),t=S.topics[p[0]][+p[1]];t.s=(t.s+1)%3;save();render()}
+ else if(d.rt){var q=d.rt.split(':');S.topics[q[0]].splice(+q[1],1);save();render()}
+ else if(d.notif){try{Notification.requestPermission().then(render)}catch(e){}}
+ else if(d.bkc){var j=JSON.stringify(S);$('#bk').value=j;var no=function(){$('#bkm').textContent='Select the text above and copy it.'};try{navigator.clipboard.writeText(j).then(function(){$('#bkm').textContent='Backup copied. Paste it somewhere safe.'},no)}catch(e){no()}}
+ else if(d.bkr){try{var o=JSON.parse($('#bk').value);if(!o||!o.topics||!o.tasks)throw 0;S=o;save();render();$('#bkm').textContent='Restored.'}catch(e){$('#bkm').textContent='That text is not a valid backup.'}}
+ else if(d.at)addTopic(d.at);
+ else if(d.mood){var c=S.chk[today()]=S.chk[today()]||{};c.mood=d.mood;save();render()}
+});
+document.addEventListener('input',function(e){
+ if(e.target.id=='c-slip'||e.target.id=='c-next'){var c=S.chk[today()]=S.chk[today()]||{};c[e.target.id=='c-slip'?'slip':'next']=e.target.value;save()}
+});
+document.addEventListener('keydown',function(e){
+ if(e.key!='Enter')return;
+ if(e.target.id=='nt')addTask();
+ else if(e.target.id&&e.target.id.indexOf('tp-')==0)addTopic(e.target.id.slice(3));
+});
+render();
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){})});
+</script>
+</body>
+</html>
